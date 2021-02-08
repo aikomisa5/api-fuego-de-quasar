@@ -1,0 +1,373 @@
+{
+	"info": {
+		"_postman_id": "465449f5-aff9-413e-9b6a-a86e28607639",
+		"name": "Fuego-de-Quasar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get PedidoAuxilio Unitario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/naves/1/topsecret-split",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"naves",
+						"1",
+						"topsecret-split"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Nave",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/naves/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"naves",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Nave",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Nave rebelde\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/naves",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"naves"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post PedidoAuxilio I",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"satellites\": [\r\n        {\r\n        \"name\": \"kenobi\",\r\n        \"distance\": \"696.419414\",\r\n        \"message\": [\"este\", \"\", \"\", \"mensaje\", \"\"]\r\n        },\r\n        {\r\n        \"name\": \"skywalker\",\r\n        \"distance\": \"158.113883\",\r\n        \"message\": [\"\", \"es\", \"\", \"\", \"secreto\"]\r\n        },\r\n        {\r\n        \"name\": \"sato\",\r\n        \"distance\": \"353.553391\",\r\n        \"message\": [\"este\", \"\", \"un\", \"\", \"\"]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/naves/1/topsecret",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"naves",
+						"1",
+						"topsecret"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post PedidoAuxilio II",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"satellites\": [\r\n        {\r\n        \"name\": \"kenobi\",\r\n        \"distance\": \"590.529423\",\r\n        \"message\": [\"este\", \"\", \"es\", \"\", \"\", \"secreto\"]\r\n        },\r\n        {\r\n        \"name\": \"skywalker\",\r\n        \"distance\": \"163.477827\",\r\n        \"message\": [\"\", \"mensaje\", \"\", \"un\", \"\", \"\"]\r\n        },\r\n        {\r\n        \"name\": \"sato\",\r\n        \"distance\": \"467.680446\",\r\n        \"message\": [\"\", \"\", \"\", \"\", \"mensaje\", \"\"]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/naves/1/topsecret",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"naves",
+						"1",
+						"topsecret"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post PedidoAuxilio III",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"satellites\": [\r\n        {\r\n        \"name\": \"kenobi\",\r\n        \"distance\": \"551.543289\",\r\n        \"message\": [\"este\", \"\", \"es\", \"\", \"mensaje\", \"\", \"para\", \"\", \"satelites\"]\r\n        },\r\n        {\r\n        \"name\": \"skywalker\",\r\n        \"distance\": \"142.126704\",\r\n        \"message\": [\"\", \"mensaje\", \"\", \"\", \"\", \"secreto\", \"\", \"\", \"\"]\r\n        },\r\n        {\r\n        \"name\": \"sato\",\r\n        \"distance\": \"498.196748\",\r\n        \"message\": [\"\", \"\", \"\", \"un\", \"\", \"\", \"\", \"los\", \"\"]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/naves/1/topsecret",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"naves",
+						"1",
+						"topsecret"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post PedidoAuxilio Unitario I",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"distance\": 696.419414,\r\n    \"message\": [\"\", \"es\", \"\", \"\", \"\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/naves/1/topsecret-split/KENOBI",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"naves",
+						"1",
+						"topsecret-split",
+						"KENOBI"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post PedidoAuxilio Unitario II",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"distance\": 158.113883,\r\n    \"message\": [\"este\", \"\", \"\", \"\", \"secreto\"]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/naves/1/topsecret-split/SKYWALkER",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"naves",
+						"1",
+						"topsecret-split",
+						"SKYWALkER"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post PedidoAuxilio Unitario III",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"distance\": 353.553391,\r\n    \"message\": [\"\", \"\", \"un\", \"mensaje\", \"\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/naves/1/topsecret-split/Sato",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"naves",
+						"1",
+						"topsecret-split",
+						"Sato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post PedidoAuxilio - Not Found I",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"satellites\": [\r\n        {\r\n        \"name\": \"kenobi\",\r\n        \"distance\": \"696.419414\",\r\n        \"message\": [\"este\", \"\", \"\", \"\", \"\"]\r\n        },\r\n        {\r\n        \"name\": \"skywalker\",\r\n        \"distance\": \"158.113883\",\r\n        \"message\": [\"\", \"es\", \"\", \"\", \"secreto\"]\r\n        },\r\n        {\r\n        \"name\": \"sato\",\r\n        \"distance\": \"353.553391\",\r\n        \"message\": [\"este\", \"\", \"un\", \"\", \"\"]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/topsecret",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"topsecret"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post PedidoAuxilio - Not Found II",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"satellites\": [\r\n        {\r\n        \"name\": \"kenobi\",\r\n        \"distance\": \"696.419414\",\r\n        \"message\": [\"este\", \"\", \"\", \"mensaje\", \"\"]\r\n        },\r\n        {\r\n        \"name\": \"skywalker\",\r\n        \"distance\": \"158.113883\",\r\n        \"message\": [\"\", \"es\", \"\", \"\", \"secreto\"]\r\n        },\r\n        {\r\n        \"name\": \"sato\",\r\n        \"distance\": \"353.553391\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/topsecret",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"topsecret"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post PedidoAuxilio - Not Found III",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"satellites\": [\r\n        {\r\n        \"name\": \"kenobi\",\r\n        \"distance\": \"696.419414\",\r\n        \"message\": [\"este\", \"\", \"\", \"\", \"\"]\r\n        },\r\n        {\r\n        \"name\": \"skywalker\",\r\n        \"distance\": \"158.113883\",\r\n        \"message\": [\"\", \"es\", \"\", \"\", \"secreto\"]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/topsecret",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"topsecret"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post PedidoAuxilio - Not Found IV",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"satellites\": [\r\n        {\r\n        \"name\": \"kenobi\",\r\n        \"distance\": \"696.419414\",\r\n        \"message\": [\"este\", \"\", \"\", \"\", \"\"]\r\n        },\r\n        {\r\n        \"name\": \"skywalker\",\r\n        \"distance\": \"158.113883\",\r\n        \"message\": [\"\", \"es\", \"\", \"\", \"secreto\"]\r\n        },\r\n        {\r\n        \"name\": \"satot\",\r\n        \"distance\": \"353.553391\",\r\n        \"message\": [\"este\", \"\", \"un\", \"\", \"\"]\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/topsecret",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"topsecret"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
