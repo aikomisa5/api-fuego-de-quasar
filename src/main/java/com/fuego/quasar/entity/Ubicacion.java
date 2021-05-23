@@ -27,6 +27,13 @@ public class Ubicacion {
 		this.uuid = UUID.randomUUID();
 	}
 	
+	public Ubicacion(float x, float y) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.uuid = UUID.randomUUID();
+	}
+	
 	public UUID getUuid() {
 		return uuid;
 	}

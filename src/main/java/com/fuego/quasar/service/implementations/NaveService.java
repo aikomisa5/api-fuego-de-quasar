@@ -1,4 +1,4 @@
-package com.fuego.quasar.service;
+package com.fuego.quasar.service.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,36 +8,25 @@ import com.fuego.quasar.dto.response.NaveResponse;
 import com.fuego.quasar.entity.Nave;
 import com.fuego.quasar.exceptions.NoContentException;
 import com.fuego.quasar.repository.NaveRepository;
+import com.fuego.quasar.service.interfaces.INaveService;
 
 @Service
-public class NaveService {
+public class NaveService implements INaveService{
 
 	@Autowired
 	private NaveRepository repository;
-
-	public NaveResponse saveNaveRequest(NaveRequest request){
-
-		Nave nave = new Nave();
-		nave.setNombre(request.getNombre());
-
-		Nave naveBBDD = repository.save(nave);
-
-		NaveResponse response = new NaveResponse();
-		response.setId(naveBBDD.getId());
-		response.setNombre(naveBBDD.getNombre());
-
-		return response;
-	}
 	
 	public NaveResponse getNaveResponse(Long id) throws NoContentException{
-		
 		Nave nave = getNave(id);
 		
-		NaveResponse response = new NaveResponse();
-		response.setId(nave.getId());
-		response.setNombre(nave.getNombre());
-		
-		return response;
+		return new NaveResponse(nave.getId(), nave.getNombre());
+	}
+
+	public NaveResponse saveNaveRequest(NaveRequest request){
+		Nave nave = new Nave(request.getNombre());
+		Nave naveBBDD = repository.save(nave);
+
+		return new NaveResponse(naveBBDD.getId(), naveBBDD.getNombre());
 	}
 
 	public Nave getNave(Long id) throws NoContentException{

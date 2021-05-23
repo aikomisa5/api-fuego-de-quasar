@@ -29,7 +29,7 @@ public class Config implements WebMvcConfigurer {
 	@Bean
 	ApiInfo apiInfo() {
 		final ApiInfoBuilder builder = new ApiInfoBuilder();
-		builder.title("Api-Fuego-de-Quasar").version("0.0.1").license("(C)")
+		builder.title("Api-Fuego-de-Quasar").version("1.0.0").license("(C)")
 		.description("Lista de endpoints de la API");
 		return builder.build();
 	}

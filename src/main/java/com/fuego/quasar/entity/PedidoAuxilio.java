@@ -42,6 +42,12 @@ public class PedidoAuxilio {
 		super();
 		this.uuid = UUID.randomUUID();
 	}
+	
+	public PedidoAuxilio(Nave nave) {
+		super();
+		this.uuid = UUID.randomUUID();
+		this.nave = nave;
+	}
 
 	public UUID getUuid() {
 		return uuid;

@@ -10,7 +10,7 @@ import com.fuego.quasar.dto.request.PedidoAuxilioCompletoRequest;
 import com.fuego.quasar.entity.Satelite;
 import com.fuego.quasar.entity.UbicacionSatelite;
 import com.fuego.quasar.exceptions.NotFoundException;
-import com.fuego.quasar.service.UbicacionService;
+import com.fuego.quasar.service.implementations.UbicacionService;
 
 @Component
 public class SateliteUtil {
@@ -31,9 +31,9 @@ public class SateliteUtil {
 
 	public void validateNombreSatelite(String nombreSatelite) throws NotFoundException {
 
-		String nombreSateliteUpper = nombreSatelite.toUpperCase();
+		nombreSatelite = nombreSatelite.toUpperCase();
 
-		if (nombreSateliteUpper.equals(Satelite.KENOBI) == false && nombreSateliteUpper.equals(Satelite.SKYWALKER) == false && nombreSateliteUpper.equals(Satelite.SATO) == false) {
+		if (nombreSatelite.equals(Satelite.KENOBI) == false && nombreSatelite.equals(Satelite.SKYWALKER) == false && nombreSatelite.equals(Satelite.SATO) == false) {
 			throw new NotFoundException("Error. El nombre del satelite no es valido: " + nombreSatelite);
 		}
 	}
@@ -83,29 +83,17 @@ public class SateliteUtil {
 
 	private void fillSateliteUbicacionByName(Satelite satelite) throws NotFoundException {
 		if (satelite.getNombre().equals(Satelite.KENOBI)) {
-			UbicacionSatelite ubicacionSateliteKenobi = new UbicacionSatelite();
-			float xPosition = ubicacionService.getXPositionSateliteKenobi();
-			float yPosition = ubicacionService.getYPositionSateliteKenobi();
-			ubicacionSateliteKenobi.setX(xPosition);
-			ubicacionSateliteKenobi.setY(yPosition);
+			UbicacionSatelite ubicacionSateliteKenobi = new UbicacionSatelite(ubicacionService.getXPositionSateliteKenobi(), ubicacionService.getYPositionSateliteKenobi());
 			ubicacionSateliteKenobi.setSatelite(satelite);
 			satelite.setUbicacion(ubicacionSateliteKenobi);
 
 		}else if(satelite.getNombre().equals(Satelite.SKYWALKER)){
-			UbicacionSatelite ubicacionSateliteSkywalker = new UbicacionSatelite();
-			float xPosition = ubicacionService.getXPositionSateliteSkywalker();
-			float yPosition = ubicacionService.getYPositionSateliteSkywalker();
-			ubicacionSateliteSkywalker.setX(xPosition);
-			ubicacionSateliteSkywalker.setY(yPosition);
+			UbicacionSatelite ubicacionSateliteSkywalker = new UbicacionSatelite(ubicacionService.getXPositionSateliteSkywalker(), ubicacionService.getYPositionSateliteSkywalker());
 			ubicacionSateliteSkywalker.setSatelite(satelite);
 			satelite.setUbicacion(ubicacionSateliteSkywalker);
 
 		}else if(satelite.getNombre().equals(Satelite.SATO)){
-			UbicacionSatelite ubicacionSateliteSato = new UbicacionSatelite();
-			float xPosition = ubicacionService.getXPositionSateliteSato();
-			float yPosition = ubicacionService.getYPositionSateliteSato();
-			ubicacionSateliteSato.setX(xPosition);
-			ubicacionSateliteSato.setY(yPosition);
+			UbicacionSatelite ubicacionSateliteSato = new UbicacionSatelite(ubicacionService.getXPositionSateliteSato(), ubicacionService.getYPositionSateliteSato());
 			ubicacionSateliteSato.setSatelite(satelite);
 			satelite.setUbicacion(ubicacionSateliteSato);
 

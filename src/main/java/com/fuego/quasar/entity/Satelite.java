@@ -47,6 +47,12 @@ public class Satelite {
 		super();
 		this.uuid = UUID.randomUUID();
 	}
+	
+	public Satelite(String nombre) {
+		super();
+		this.nombre = nombre;
+		this.uuid = UUID.randomUUID();
+	}
 
 	public UUID getUuid() {
 		return uuid;

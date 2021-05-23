@@ -21,8 +21,8 @@ import com.fuego.quasar.dto.response.PedidoAuxilioResponse;
 import com.fuego.quasar.exceptions.ConflictException;
 import com.fuego.quasar.exceptions.NoContentException;
 import com.fuego.quasar.exceptions.NotFoundException;
-import com.fuego.quasar.service.NaveService;
-import com.fuego.quasar.service.PedidoAuxilioService;
+import com.fuego.quasar.service.implementations.NaveService;
+import com.fuego.quasar.service.implementations.PedidoAuxilioService;
 
 import io.swagger.annotations.ApiOperation;
 import springfox.documentation.annotations.ApiIgnore;

@@ -15,6 +15,12 @@ public class UbicacionSatelite extends Ubicacion{
 	public UbicacionSatelite() {
 		super();
 	}
+	
+	public UbicacionSatelite(float x, float y) {
+		super();
+		this.setX(x);
+		this.setY(y);
+	}
 
 	public Satelite getSatelite() {
 		return satelite;

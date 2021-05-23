@@ -1,4 +1,4 @@
-package com.fuego.quasar.service;
+package com.fuego.quasar.service.implementations;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +23,9 @@ import com.fuego.quasar.util.UbicacionUtil;
 
 @Service
 public class PedidoAuxilioService {
+	
+	@Autowired
+	private PedidoAuxilioRepository repository;
 
 	@Autowired
 	private UbicacionService ubicacionService;
@@ -42,74 +45,45 @@ public class PedidoAuxilioService {
 	@Autowired
 	private UbicacionUtil ubicacionUtil;
 
-	@Autowired
-	private PedidoAuxilioRepository repository;
-
 	public PedidoAuxilioResponse getPedidoAuxilioUnitarioDecodificado(Long idNave) throws NotFoundException, ConflictException {
-
-		PedidoAuxilioResponse response = new PedidoAuxilioResponse();
 		
-		Nave naveBBDD;
-		try {
-			naveBBDD = naveService.getNave(idNave);
-		}catch(NoContentException e) {
-			throw new NotFoundException("Error. No existe una nave con id: " + idNave);
-		}
-
-		if (naveBBDD.getPedidosAuxilio() == null || naveBBDD.getPedidosAuxilio().isEmpty()) {
-			throw new NotFoundException("Error. La nave con id: " + idNave + " no posee pedidos de auxilio");
-		}
-
-		PedidoAuxilio pedidoAuxilio = getUltimoPedidoAuxilio(naveBBDD);
-
-		if (pedidoAuxilio.getSatelites() == null || pedidoAuxilio.getSatelites().isEmpty() || pedidoAuxilio.getSatelites().size() < 3) {
-			throw new NotFoundException("Error. La nave con id: " + idNave + " no posee la suficiente informacion para descifrar el mensaje y su ubicacion");
-		}
-
+		Nave nave = getNavePedido(idNave);
+		pedidoAuxilioUtil.validatePedidosAuxilioFromNave(idNave, nave);
+		PedidoAuxilio pedidoAuxilio = getUltimoPedidoAuxilio(nave);
+		pedidoAuxilioUtil.validateSatelitesFromPedidoAuxilio(idNave, pedidoAuxilio);
 		sateliteUtil.validateNombreSatelites(pedidoAuxilio.getSatelites());
-		response = decodeMessageAndLocation(pedidoAuxilio.getSatelites());
-
-		return response;
+		
+		return getDecodedMessageAndLocation(pedidoAuxilio.getSatelites());
 	}
 
 	public void savePedidoAuxilioUnitario(PedidoAuxilioUnitarioRequest pedidoAuxilioUnitario, Long idNave, String nombreSatelite) throws NotFoundException {
+		
+		sateliteUtil.validateNombreSatelite(nombreSatelite);
+		nombreSatelite = nombreSatelite.toUpperCase();
 
-		String nombreSateliteUpper = nombreSatelite.toUpperCase();
-		sateliteUtil.validateNombreSatelite(nombreSateliteUpper);
+		Nave nave = getNavePedido(idNave);
 
-		Nave naveBBDD;
-		try {
-			naveBBDD = naveService.getNave(idNave);
-		}catch(NoContentException e) {
-			throw new NotFoundException("Ha ocurrido un error. No existe la nave con id: " + idNave);
-		}
+		if (nave.getPedidosAuxilio() == null || nave.getPedidosAuxilio().isEmpty()) {
 
-		if (naveBBDD.getPedidosAuxilio() == null || naveBBDD.getPedidosAuxilio().isEmpty()) {
-
-			PedidoAuxilio pedido = new PedidoAuxilio();
-			pedido.setNave(naveBBDD);
+			PedidoAuxilio pedido = new PedidoAuxilio(nave);
 
 			Satelite satelite = new Satelite();
-
-			satelite.setNombre(nombreSateliteUpper);
+			satelite.setNombre(nombreSatelite);
 			satelite.setMensaje(pedidoAuxilioUnitario.getMensaje());
 			satelite.setDistanciaANave(pedidoAuxilioUnitario.getDistanciaANave());
 			satelite.setPedido(pedido);
 			sateliteUtil.fillSateliteUbicacion(satelite);
-
 			pedido.addSatelite(satelite);
-
+			
 			savePedidoAuxilio(pedido);
 		}else {
 
-			PedidoAuxilio pedidoAuxilio = getUltimoPedidoAuxilio(naveBBDD);
-
-			Satelite sateliteBBDD = pedidoAuxilio.getSatelites().stream().filter(p -> p.getNombre().equals(nombreSateliteUpper)).findFirst().orElse(null);
+			PedidoAuxilio pedidoAuxilio = getUltimoPedidoAuxilio(nave);
+			Satelite sateliteBBDD = getSateliteFromPedidoAuxilio(nombreSatelite, pedidoAuxilio);
 
 			if (sateliteBBDD == null) {
 				Satelite satelite = new Satelite();
-
-				satelite.setNombre(nombreSateliteUpper);
+				satelite.setNombre(nombreSatelite);
 				satelite.setMensaje(pedidoAuxilioUnitario.getMensaje());
 				satelite.setDistanciaANave(pedidoAuxilioUnitario.getDistanciaANave());
 				satelite.setPedido(pedidoAuxilio);
@@ -117,7 +91,6 @@ public class PedidoAuxilioService {
 
 				pedidoAuxilio.addSatelite(satelite);
 			}else {
-				
 				sateliteBBDD.setMensaje(pedidoAuxilioUnitario.getMensaje());
 				sateliteBBDD.setDistanciaANave(pedidoAuxilioUnitario.getDistanciaANave());
 				sateliteUtil.fillSateliteUbicacion(sateliteBBDD);
@@ -131,18 +104,12 @@ public class PedidoAuxilioService {
 
 		PedidoAuxilioResponse response = new PedidoAuxilioResponse();
 
-		Nave naveBBDD;
-		try {
-			naveBBDD = naveService.getNave(idNave);
-		}catch(NoContentException e) {
-			throw new NotFoundException("Ha ocurrido un error. No existe la nave con id: " + idNave);
-		}
-
+		Nave naveBBDD = getNavePedido(idNave);
 		sateliteUtil.validateCantidadSatelites(request);
 		List<Satelite> satelites = request.getSatelites().stream().map(s -> sateliteUtil.getSateliteFromSateliteDto(s)).collect(Collectors.toList());
 		sateliteUtil.validateNombreSatelites(satelites);
 
-		response = decodeMessageAndLocation(satelites);
+		response = getDecodedMessageAndLocation(satelites);
 
 		PedidoAuxilio pedidoAuxilio = new PedidoAuxilio();
 		UbicacionPedidoAuxilio ubicacionPedidoAuxilio = new UbicacionPedidoAuxilio();
@@ -183,8 +150,23 @@ public class PedidoAuxilioService {
 	public void deletePedidoAuxilio(Long id){
 		repository.deleteById(id);	
 	}
+	
+	private Nave getNavePedido(Long idNave) throws NotFoundException {
+		Nave naveBBDD;
+		try {
+			naveBBDD = naveService.getNave(idNave);
+		}catch(NoContentException e) {
+			throw new NotFoundException("Error. No existe una nave con id: " + idNave);
+		}
+		return naveBBDD;
+	}
+	
+	private Satelite getSateliteFromPedidoAuxilio(String nombreSatelite, PedidoAuxilio pedidoAuxilio) {
+		Satelite sateliteBBDD = pedidoAuxilio.getSatelites().stream().filter(p -> p.getNombre().equals(nombreSatelite)).findFirst().orElse(null);
+		return sateliteBBDD;
+	}
 
-	private PedidoAuxilioResponse decodeMessageAndLocation(List<Satelite> satelites)
+	private PedidoAuxilioResponse getDecodedMessageAndLocation(List<Satelite> satelites)
 			throws NotFoundException, ConflictException {
 		
 		PedidoAuxilioResponse response = new PedidoAuxilioResponse();
@@ -199,6 +181,7 @@ public class PedidoAuxilioService {
 	}
 
 	private PedidoAuxilio getUltimoPedidoAuxilio(Nave naveBBDD) throws NotFoundException {
+		
 		List<Long> ids = naveBBDD.getPedidosAuxilio().stream().map(n -> n.getId()).collect(Collectors.toList());
 		Long idMaximo = ids.stream().max(Long::compare).get();
 		PedidoAuxilio pedidoAuxilio = naveBBDD.getPedidosAuxilio().stream().filter(n -> n.getId().equals(idMaximo)).findFirst().orElseThrow(() -> new NotFoundException("Error. No se ha encontrado un pedido de auxilio con id: " + idMaximo));

@@ -8,7 +8,7 @@
 	</parent>
   <groupId>com.fuego.quasar</groupId>
   <artifactId>fuego-de-quasar</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>fuego-de-quasar</name>
   <properties>
 		<java.version>1.8</java.version>

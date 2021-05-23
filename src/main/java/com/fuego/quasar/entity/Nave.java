@@ -32,6 +32,12 @@ public class Nave {
 		super();
 		this.uuid = UUID.randomUUID();
 	}
+	
+	public Nave(String nombre) {
+		super();
+		this.nombre = nombre;
+		this.uuid = UUID.randomUUID();
+	}
 
 	public UUID getUuid() {
 		return uuid;
